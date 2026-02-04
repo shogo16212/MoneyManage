@@ -1,0 +1,27 @@
+﻿<Window x:Class="MoneyManage.StatisticsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MoneyManage"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource Default}"
+        Title="StatisticsWindow" Height="700" Width="1200"
+        xmlns:wfc="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <WindowsFormsHost Grid.Row="0">
+            <wfc:Chart x:Name="columnChart"/>
+        </WindowsFormsHost>
+
+        <WindowsFormsHost Grid.Row="1">
+            <wfc:Chart x:Name="columnGetChart"/>
+        </WindowsFormsHost>
+
+    </Grid>
+</Window>
