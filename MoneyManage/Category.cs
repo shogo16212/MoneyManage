@@ -23,7 +23,7 @@ namespace MoneyManage
         public int EntoryID { get; set; }
         public string CategoryName { get; set; }
     
-        public virtual ICollection<Transaction> Transactions { get; set; }
         public virtual Entory Entory { get; set; }
+        public virtual ICollection<Transaction> Transactions { get; set; }
     }
 }

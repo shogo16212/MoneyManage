@@ -37,7 +37,6 @@
           <Property Name="TransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="Date" Type="date" Nullable="false" />
-          <Property Name="Type" Type="varchar" MaxLength="10" />
           <Property Name="Amount" Type="int" Nullable="false" />
           <Property Name="CategoryID" Type="int" />
           <Property Name="Memo" Type="nvarchar" MaxLength="255" />
@@ -51,30 +50,6 @@
           <Property Name="PasswordHash" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="IsAdmin" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Transacti__Categ__3E52440B">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
-          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Categories">
-              <PropertyRef Name="CategoryID" />
-            </Principal>
-            <Dependent Role="Transactions">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Transacti__UserI__3D5E1FD2">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Transactions">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Categories_Entories">
           <End Role="Entories" Type="Self.Entories" Multiplicity="1" />
           <End Role="Categories" Type="Self.Categories" Multiplicity="*" />
@@ -87,23 +62,47 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Transactions_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="MoneyManagerModelStoreContainer">
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Entories" EntityType="Self.Entories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Transacti__Categ__3E52440B" Association="Self.FK__Transacti__Categ__3E52440B">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="Transactions" EntitySet="Transactions" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Transacti__UserI__3D5E1FD2" Association="Self.FK__Transacti__UserI__3D5E1FD2">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Transactions" EntitySet="Transactions" />
-          </AssociationSet>
           <AssociationSet Name="FK_Categories_Entories" Association="Self.FK_Categories_Entories">
             <End Role="Entories" EntitySet="Entories" />
             <End Role="Categories" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Categories" Association="Self.FK_Transactions_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Users" Association="Self.FK_Transactions_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -118,8 +117,8 @@
           <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EntoryID" Type="Int32" Nullable="false" />
           <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__Categ__3E52440B" FromRole="Categories" ToRole="Transactions" />
           <NavigationProperty Name="Entory" Relationship="Self.FK_Categories_Entories" FromRole="Categories" ToRole="Entories" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_Categories" FromRole="Categories" ToRole="Transactions" />
         </EntityType>
         <EntityType Name="Entory">
           <Key>
@@ -146,12 +145,11 @@
           <Property Name="TransactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Amount" Type="Int32" Nullable="false" />
           <Property Name="CategoryID" Type="Int32" />
           <Property Name="Memo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Category" Relationship="Self.FK__Transacti__Categ__3E52440B" FromRole="Transactions" ToRole="Categories" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Transacti__UserI__3D5E1FD2" FromRole="Transactions" ToRole="Users" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Transactions_Categories" FromRole="Transactions" ToRole="Categories" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Transactions_Users" FromRole="Transactions" ToRole="Users" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -161,20 +159,8 @@
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PasswordHash" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__UserI__3D5E1FD2" FromRole="Users" ToRole="Transactions" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_Users" FromRole="Users" ToRole="Transactions" />
         </EntityType>
-        <Association Name="FK__Transacti__Categ__3E52440B">
-          <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Categories">
-              <PropertyRef Name="CategoryID" />
-            </Principal>
-            <Dependent Role="Transactions">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Categories_Entories">
           <End Role="Entories" Type="Self.Entory" Multiplicity="1" />
           <End Role="Categories" Type="Self.Category" Multiplicity="*" />
@@ -187,7 +173,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Transacti__UserI__3D5E1FD2">
+        <Association Name="FK_Transactions_Categories">
+          <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Users">
           <End Role="Users" Type="Self.User" Multiplicity="1" />
           <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
           <ReferentialConstraint>
@@ -205,15 +203,15 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Transactions" EntityType="Self.Transaction" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK__Transacti__Categ__3E52440B" Association="Self.FK__Transacti__Categ__3E52440B">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="Transactions" EntitySet="Transactions" />
-          </AssociationSet>
           <AssociationSet Name="FK_Categories_Entories" Association="Self.FK_Categories_Entories">
             <End Role="Entories" EntitySet="Entories" />
             <End Role="Categories" EntitySet="Categories" />
           </AssociationSet>
-          <AssociationSet Name="FK__Transacti__UserI__3D5E1FD2" Association="Self.FK__Transacti__UserI__3D5E1FD2">
+          <AssociationSet Name="FK_Transactions_Categories" Association="Self.FK_Transactions_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Users" Association="Self.FK_Transactions_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
@@ -258,7 +256,6 @@
                 <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="Memo" ColumnName="Memo" />

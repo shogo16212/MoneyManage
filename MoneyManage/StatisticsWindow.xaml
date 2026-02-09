@@ -13,15 +13,37 @@
 
         <Grid.RowDefinitions>
             <RowDefinition/>
+            <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <WindowsFormsHost Grid.Row="0">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        
+        <WindowsFormsHost Grid.Row="0" Grid.ColumnSpan="2">
             <wfc:Chart x:Name="columnChart"/>
         </WindowsFormsHost>
 
-        <WindowsFormsHost Grid.Row="1">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5" Grid.Row="1" Grid.ColumnSpan="2">
+            <TextBlock Text="対象ユーザー："/>
+            <ComboBox Width="200" x:Name="searchComboBox" SelectionChanged="searchComboBox_SelectionChanged" DisplayMemberPath="aa"/>
+        </StackPanel>
+
+        <DataGrid x:Name="historyDataGrid" Grid.Row="2" Margin="5" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header=""
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <WindowsFormsHost Grid.Row="2" Grid.Column="1">
             <wfc:Chart x:Name="columnGetChart"/>
         </WindowsFormsHost>
+
+        <!--<WindowsFormsHost Grid.Row="0" Grid.Column="1">
+            <wfc:Chart x:Name="columnGetChart"/>
+        </WindowsFormsHost>-->
 
     </Grid>
 </Window>

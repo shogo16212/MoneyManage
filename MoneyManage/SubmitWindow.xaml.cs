@@ -28,16 +28,16 @@ namespace MoneyManage
             typeComboBoxr.ItemsSource = db.Entories.ToList();
             typeComboBoxr.SelectedItem = db.Entories.ToList().FirstOrDefault();
 
-            datePicker.SelectedDate= DateTime.Now;
+            datePicker.SelectedDate = DateTime.Now;
 
             if (transactionId != 0)
             {
                 _transaction = db.Transactions.ToList().Single(a => a.TransactionID == transactionId);
 
                 datePicker.SelectedDate = _transaction.Date;
-                typeComboBoxr.SelectedItem = db.Entories.ToList().FirstOrDefault(a => a.EntoriesName == _transaction.Type);
-                categoryComboBoxr.SelectedItem = _transaction.Category ;
-                amountTextBox.Text=_transaction.Amount.ToString();
+                typeComboBoxr.SelectedItem = db.Entories.ToList().FirstOrDefault(a => a.EntoriesID == _transaction.CategoryID);
+                categoryComboBoxr.SelectedItem = _transaction.Category;
+                amountTextBox.Text = _transaction.Amount.ToString();
                 memoTextBox.Text = _transaction.Memo;
 
             }
@@ -54,14 +54,9 @@ namespace MoneyManage
                 {
                     "入力されていない項目があります。".Err();
                 }
-                if (_transaction.TransactionID == null)
-                {
-
-                }
 
                 _transaction = new Transaction
                 {
-                    Type = entory.EntoriesName,
                     CategoryID = category.CategoryID,
                     UserID = Common.UserID,
                     Amount = amount,

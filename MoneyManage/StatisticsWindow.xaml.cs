@@ -47,18 +47,21 @@ namespace MoneyManage
             columnChart.Series[0].IsValueShownAsLabel = true;
             columnChart.Series[1].IsValueShownAsLabel = true;
 
-            var today= DateTime.Today;
+            var today = DateTime.Today;
             var firstDate = new DateTime(today.Year, today.Month, 01);
-            var lastDate = new DateTime(today.Year, today.Month, DateTime.DaysInMonth(today.Year,today.Month));
+            var lastDate = new DateTime(today.Year, today.Month, DateTime.DaysInMonth(today.Year, today.Month));
             for (var dt = firstDate; dt <= lastDate; dt = dt.AddDays(1))
             {
-                var total=db.Transactions.ToList().Where(a => a.UserID == Common.UserID && a.Date.Date == dt.Date && a.Type == "支出").Sum(a => a.Amount);
-                var getTotal=db.Transactions.ToList().Where(a => a.UserID == Common.UserID && a.Date.Date == dt.Date && a.Type == "収入").Sum(a => a.Amount);
-                columnChart.Series[0].Points.AddXY(dt.ToShortDateString(),total);
-                columnChart.Series[1].Points.AddXY(dt.ToShortDateString(),getTotal);
+                var total = db.Transactions.ToList().Where(a => a.UserID == Common.UserID && a.Date.Date == dt.Date && a.Category.EntoryID == 1).Sum(a => a.Amount);
+                var getTotal = db.Transactions.ToList().Where(a => a.UserID == Common.UserID && a.Date.Date == dt.Date && a.Category.EntoryID == 2).Sum(a => a.Amount);
+                columnChart.Series[0].Points.AddXY(dt.ToShortDateString(), total);
+                columnChart.Series[1].Points.AddXY(dt.ToShortDateString(), getTotal);
             }
         }
 
+        private void searchComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
+        }
     }
 }

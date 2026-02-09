@@ -17,7 +17,6 @@ namespace MoneyManage
         public int TransactionID { get; set; }
         public int UserID { get; set; }
         public System.DateTime Date { get; set; }
-        public string Type { get; set; }
         public int Amount { get; set; }
         public Nullable<int> CategoryID { get; set; }
         public string Memo { get; set; }
