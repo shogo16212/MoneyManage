@@ -12,6 +12,7 @@
     <Grid>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition/>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
@@ -21,23 +22,33 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        
-        <WindowsFormsHost Grid.Row="0" Grid.ColumnSpan="2">
+
+        <Image Source="/images/icon.png" Height="50" Margin="5" HorizontalAlignment="Left"/>
+
+        <TextBlock Margin="5" Grid.Column="1" HorizontalAlignment="Right" x:Name="loginUserTextBlock"/>
+
+        <WindowsFormsHost Grid.Row="1" Grid.ColumnSpan="2">
             <wfc:Chart x:Name="columnChart"/>
         </WindowsFormsHost>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5" Grid.Row="1" Grid.ColumnSpan="2">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5" Grid.Row="2" Grid.ColumnSpan="2">
             <TextBlock Text="対象ユーザー："/>
             <ComboBox Width="200" x:Name="searchComboBox" SelectionChanged="searchComboBox_SelectionChanged" DisplayMemberPath="aa"/>
+            <TextBlock Text="     対象年月："/>
+            <ComboBox Width="200" x:Name="searchyearMonthComboBox" SelectionChanged="searchyearMonthComboBox_SelectionChanged" DisplayMemberPath="aa"/>
+
         </StackPanel>
 
-        <DataGrid x:Name="historyDataGrid" Grid.Row="2" Margin="5" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" CanUserAddRows="False">
+        <DataGrid x:Name="historyDataGrid" Grid.Row="3" Margin="5" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header=""
+                <DataGridTextColumn Header="日付" Binding="{Binding aa}"/>
+                <DataGridTextColumn Header="カテゴリー" Binding="{Binding aa}"/>
+                <DataGridTextColumn Header="料金" Binding="{Binding aa}"/>
+                <DataGridTextColumn Header="備考" Binding="{Binding aa}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <WindowsFormsHost Grid.Row="2" Grid.Column="1">
+        <WindowsFormsHost Grid.Row="3" Margin="5" Grid.Column="1">
             <wfc:Chart x:Name="columnGetChart"/>
         </WindowsFormsHost>
 

@@ -29,9 +29,8 @@ namespace MoneyManage
             {
                 user = db.Users.ToList().Find(a => a.UserID == userId);
                 nameTextBox.Text = user.UserName;
-                passBox.Password = user.PasswordHash;
-                cPassBox.Password = user.PasswordHash;
                 adminCheckBox.IsChecked = user.IsAdmin;
+                loginUserTextBlock.Text = $"ログイン：{user.UserName}";
             }
         }
 

@@ -35,6 +35,8 @@ namespace MoneyManage
 
             _user = db.Users.Find(Common.UserID);
 
+            loginUserTextBlock.Text = $"ログイン：{_user.UserName}";
+
             if (_user.IsAdmin)
             {
                 userAddButton.Visibility = Visibility.Visible;

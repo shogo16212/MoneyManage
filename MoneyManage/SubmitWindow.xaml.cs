@@ -25,6 +25,10 @@ namespace MoneyManage
         {
             InitializeComponent();
 
+            var user = db.Users.Find(Common.UserID);
+
+            loginUserTextBlock.Text = $"ログイン：{user.UserName}";
+
             typeComboBoxr.ItemsSource = db.Entories.ToList();
             typeComboBoxr.SelectedItem = db.Entories.ToList().FirstOrDefault();
 

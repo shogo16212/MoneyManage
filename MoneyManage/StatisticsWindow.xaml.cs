@@ -21,8 +21,17 @@ namespace MoneyManage
     {
         private DB db = new DB();
         public StatisticsWindow()
-        {
+        {                   
             InitializeComponent();
+
+            var user = db.Users.Find(Common.UserID);
+
+            loginUserTextBlock.Text = $"ログイン：{user.UserName}";
+
+            var users = db.Users.ToList();
+            users.Insert(0, new User { UserID = 0, UserName = "All" });
+            searchComboBox.ItemsSource = users;
+            searchComboBox.SelectedItem = users.FirstOrDefault();
 
             ColumnChartRefresh();
         }
@@ -61,7 +70,58 @@ namespace MoneyManage
 
         private void searchComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var user = searchComboBox.SelectedItem as User;
+            if (user != null) return;
+            var firstDate = db.Transactions.ToList().Min(a => a.Date);
+            var yearMonths = new List<string>();
 
+            if (user.UserID != 0)
+            {
+                firstDate = user.Transactions.Min(a => a.Date);
+            }
+
+            for (var dt = firstDate; dt <= DateTime.Now; dt = dt.AddMonths(1))
+            {
+                yearMonths.Add(dt.ToString("yyyy-MM"));
+            }
+
+            yearMonths.Insert(0,"All");
+            searchyearMonthComboBox.ItemsSource = yearMonths;
+            searchyearMonthComboBox.SelectedItem = yearMonths.FirstOrDefault();
+        }
+
+        private void searchyearMonthComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Refresh();
+        }
+
+        private void Refresh()
+        {
+            try
+            {
+                var user = searchComboBox.SelectedItem as User;
+                var yearMonth = searchyearMonthComboBox.SelectedItem as String;
+                if(user == null && yearMonth == null) return;
+                historyDataGrid.ItemsSource = Filter(db.Transactions.ToList().OrderBy(a => a.User).ToList(), user.UserID, yearMonth);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.Show();
+            }
+        }
+
+        private List<Transaction> Filter(List<Transaction> transactions, int userId, string yearMonth)
+        {
+            if (userId != 0)
+            {
+                return Filter(transactions.Where(a => a.UserID == userId).ToList(), 0, yearMonth);
+            }
+
+            if (yearMonth != "All")
+            {
+                return Filter(transactions.Where(a => a.Date.ToString("yyyy-MM") == yearMonth).ToList(), userId, "All");
+            }
+            return transactions;
         }
     }
 }
