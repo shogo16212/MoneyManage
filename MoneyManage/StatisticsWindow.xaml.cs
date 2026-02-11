@@ -101,8 +101,14 @@ namespace MoneyManage
             {
                 var user = searchComboBox.SelectedItem as User;
                 var yearMonth = searchyearMonthComboBox.SelectedItem as String;
-                if(user == null && yearMonth == null) return;
-                historyDataGrid.ItemsSource = Filter(db.Transactions.ToList().OrderBy(a => a.User).ToList(), user.UserID, yearMonth);
+                if (user == null && yearMonth == null) return;
+                var filterList = Filter(db.Transactions.ToList().OrderBy(a => a.User).ToList(), user.UserID, yearMonth);
+                historyDataGrid.ItemsSource = filterList;
+
+                titleTextBlock.Text = $"{user.UserName}さんの詳細";
+
+                expenTextBlock.Text = filterList.Where(a => a.Category.EntoryID == 1).Sum(a => a.Amount).ToString();
+                incomeTextBlock.Text = filterList.Where(a => a.Category.EntoryID == 2).Sum(a => a.Amount).ToString();
             }
             catch (Exception ex)
             {

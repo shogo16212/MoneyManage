@@ -33,7 +33,7 @@
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5" Grid.Row="2" Grid.ColumnSpan="2">
             <TextBlock Text="対象ユーザー："/>
-            <ComboBox Width="200" x:Name="searchComboBox" SelectionChanged="searchComboBox_SelectionChanged" DisplayMemberPath="aa"/>
+            <ComboBox Width="200" x:Name="searchComboBox" SelectionChanged="searchComboBox_SelectionChanged" DisplayMemberPath="Username"/>
             <TextBlock Text="     対象年月："/>
             <ComboBox Width="200" x:Name="searchyearMonthComboBox" SelectionChanged="searchyearMonthComboBox_SelectionChanged" DisplayMemberPath="aa"/>
 
@@ -48,9 +48,22 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <WindowsFormsHost Grid.Row="3" Margin="5" Grid.Column="1">
+        <StackPanel Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock x:Name="titleTextBlock" Margin="5"/>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBlock Text="支出合計" Width="100"/>
+                <TextBlock x:Name="expenTextBlock" Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBlock Text="収入合計" Width="100"/>
+                <TextBlock x:Name="incomeTextBlock" Width="200"/>
+            </StackPanel>
+
+        </StackPanel>
+
+        <!--<WindowsFormsHost Grid.Row="3" Margin="5" Grid.Column="1">
             <wfc:Chart x:Name="columnGetChart"/>
-        </WindowsFormsHost>
+        </WindowsFormsHost>-->
 
         <!--<WindowsFormsHost Grid.Row="0" Grid.Column="1">
             <wfc:Chart x:Name="columnGetChart"/>
