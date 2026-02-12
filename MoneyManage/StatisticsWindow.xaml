@@ -13,6 +13,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition/>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
@@ -27,19 +28,20 @@
 
         <TextBlock Margin="5" Grid.Column="1" HorizontalAlignment="Right" x:Name="loginUserTextBlock"/>
 
-        <WindowsFormsHost Grid.Row="1" Grid.ColumnSpan="2">
+        <Button Grid.Row="1" Margin="5" HorizontalAlignment="Right" x:Name="backButton" Click="backButton_Click" Content="戻る" Width="100" Grid.Column="1"/>
+        <WindowsFormsHost Grid.Row="2" Grid.ColumnSpan="2">
             <wfc:Chart x:Name="columnChart"/>
         </WindowsFormsHost>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5" Grid.Row="2" Grid.ColumnSpan="2">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5" Grid.Row="3" Grid.ColumnSpan="2">
             <TextBlock Text="対象ユーザー："/>
-            <ComboBox Width="200" x:Name="searchComboBox" SelectionChanged="searchComboBox_SelectionChanged" DisplayMemberPath="Username"/>
+            <ComboBox Width="200" x:Name="searchComboBox" SelectionChanged="searchComboBox_SelectionChanged" DisplayMemberPath="UserName"/>
             <TextBlock Text="     対象年月："/>
             <ComboBox Width="200" x:Name="searchyearMonthComboBox" SelectionChanged="searchyearMonthComboBox_SelectionChanged" DisplayMemberPath="aa"/>
 
         </StackPanel>
 
-        <DataGrid x:Name="historyDataGrid" Grid.Row="3" Margin="5" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" CanUserAddRows="False">
+        <DataGrid x:Name="historyDataGrid" Grid.Row="4" Margin="5" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="日付" Binding="{Binding aa}"/>
                 <DataGridTextColumn Header="カテゴリー" Binding="{Binding aa}"/>
@@ -48,7 +50,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock x:Name="titleTextBlock" Margin="5"/>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="支出合計" Width="100"/>

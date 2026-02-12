@@ -129,5 +129,10 @@ namespace MoneyManage
             }
             return transactions;
         }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
