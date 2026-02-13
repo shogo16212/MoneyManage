@@ -23,6 +23,7 @@
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
             <Button x:Name="addButton" Click="addButton_Click" Content="家計簿登録" Width="150" Margin="10"/>
+            <Button x:Name="categoryManageButton" Click="categoryManageButton_Click" Content="カテゴリー管理" Width="150" Margin="10"/>
             <Button x:Name="statisticsButton" Click="statisticsButton_Click" Content="分析" Width="150" Margin="10"/>
             <Button x:Name="logoutButton" Click="logoutButton_Click" Content="ログアウト" Width="150" Margin="10"/>
             <Button x:Name="userAddButton" Click="userAddButton_Click" Content="ユーザー追加" Width="150" Margin="10" Visibility="Collapsed"/>

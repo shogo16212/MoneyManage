@@ -69,6 +69,9 @@
     <Compile Include="Category.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="CategoryManageWindow.xaml.cs">
+      <DependentUpon>CategoryManageWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common.cs" />
     <Compile Include="Entory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -109,6 +112,10 @@
     <Compile Include="UserRegisterWindow.xaml.cs">
       <DependentUpon>UserRegisterWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="CategoryManageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

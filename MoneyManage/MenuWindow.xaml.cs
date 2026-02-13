@@ -95,5 +95,10 @@ namespace MoneyManage
             new SubmitWindow(transaction.TransactionID).ShowDialog();
             Refresh();
         }
+
+        private void categoryManageButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
