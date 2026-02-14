@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,22 @@ namespace MoneyManage
     /// </summary>
     public partial class CategoryManageWindow : Window
     {
+        private DB db = new DB();
+        private ObservableCollection<Category> categories = new ObservableCollection<Category>();
+        private List<Category> delteCategories = new List<Category>();
         public CategoryManageWindow()
         {
             InitializeComponent();
+
+            entryComboBox.ItemsSource = db.Entories.ToList();
+            entryComboBox.SelectedItem = db.Entories.ToList().FirstOrDefault();
+
+            db.Categories.ToList().ForEach(a =>
+            {
+                categories.Add(a);
+            });
+
+            dataGrid.ItemsSource = categories;
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
@@ -31,7 +45,6 @@ namespace MoneyManage
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
