@@ -98,7 +98,8 @@ namespace MoneyManage
 
         private void categoryManageButton_Click(object sender, RoutedEventArgs e)
         {
-
+            new CategoryManageWindow().ShowDialog();
+            Refresh();
         }
     }
 }

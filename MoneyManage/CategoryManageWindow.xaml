@@ -21,7 +21,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
             <TextBlock Text="タイプ" Width="100" Margin="5"/>
-            <ComboBox x:Name="entryComboBox" Width="200" Margin="5" DisplayMemberPath="aa"/>
+            <ComboBox x:Name="entryComboBox" Width="200" Margin="5" DisplayMemberPath="EntoriesName"/>
             <TextBlock Width="100" Text="名前" Margin="5"/>
             <TextBox x:Name="nameTextBox" Width="200" Margin="5"/>
             <Button Margin="5" x:Name="addButton" Click="addButton_Click" Content="追加" Width="70"/>
@@ -29,12 +29,12 @@
 
         <DataGrid x:Name="dataGrid" Grid.Row="2" Margin="5" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="タイプ" Binding="{Binding aa}" Width="*"/>
-                <DataGridTextColumn Header="カテゴリー" Binding="{Binding aa}" Width="*"/>
+                <DataGridTextColumn Header="タイプ" Binding="{Binding Entory.EntoriesName}" Width="*"/>
+                <DataGridTextColumn Header="カテゴリー" Binding="{Binding CategoryName}" Width="*"/>
                 <DataGridTemplateColumn Header="アクション" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="deleteButton" Click="deleteButton_Click" Content="削除" Width="70" Tag="{Binding}"/>
+                            <Button x:Name="deleteButton" Click="deleteButton_Click" Content="削除" Width="70" Tag="{Binding}" Foreground="{StaticResource Primary}" Background="{StaticResource White}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
