@@ -39,7 +39,7 @@
         <DataGrid SelectionChanged="dataGrid_SelectionChanged" Grid.Row="3" x:Name="dataGrid" Margin="10" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="日付" Binding="{Binding Date, StringFormat=yyyy-MM-dd}" Width="*"/>
-                <DataGridTextColumn Header="タイプ" Binding="{Binding Type}" Width="0.5*"/>
+                <DataGridTextColumn Header="タイプ" Binding="{Binding Category.Entory.EntoriesName}" Width="0.5*"/>
                 <DataGridTextColumn Header="カテゴリー" Binding="{Binding Category.CategoryName}" Width="*"/>
                 <DataGridTextColumn Header="料金" Binding="{Binding Amount}" Width="*"/>
                 <DataGridTextColumn Header="備考" Binding="{Binding Memo}" Width="4*"/>
