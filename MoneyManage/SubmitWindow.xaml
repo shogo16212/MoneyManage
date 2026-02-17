@@ -44,8 +44,8 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
-            <Button x:Name="submitButton" Click="submitButton_Click" Content="登録" Margin="5" Width="100"/>
             <Button x:Name="cancelButton" Click="cancelButton_Click" Content="キャンセル" Margin="5" Width="100" Background="{StaticResource White}" Foreground="{StaticResource Primary}"/>
+            <Button x:Name="submitButton" Click="submitButton_Click" Content="登録" Margin="5" Width="100"/>
         </StackPanel>
     </Grid>
 </Window>

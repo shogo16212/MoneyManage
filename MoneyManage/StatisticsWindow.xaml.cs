@@ -71,13 +71,13 @@ namespace MoneyManage
         private void searchComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var user = searchComboBox.SelectedItem as User;
-            if (user != null) return;
-            var firstDate = db.Transactions.ToList().Min(a => a.Date);
+            if (user == null) return;
+            var firstDate = db.Transactions.ToList().Min(a => a.Date).Date;
             var yearMonths = new List<string>();
 
             if (user.UserID != 0)
             {
-                firstDate = user.Transactions.Min(a => a.Date);
+                firstDate = user.Transactions.Min(a => a.Date).Date;
             }
 
             for (var dt = firstDate; dt <= DateTime.Now; dt = dt.AddMonths(1))
@@ -100,9 +100,9 @@ namespace MoneyManage
             try
             {
                 var user = searchComboBox.SelectedItem as User;
-                var yearMonth = searchyearMonthComboBox.SelectedItem as String;
+                var yearMonth = searchyearMonthComboBox.SelectedItem as string;
                 if (user == null && yearMonth == null) return;
-                var filterList = Filter(db.Transactions.ToList().OrderBy(a => a.User).ToList(), user.UserID, yearMonth);
+                var filterList = Filter(db.Transactions.ToList(), user.UserID, yearMonth);
                 historyDataGrid.ItemsSource = filterList;
 
                 titleTextBlock.Text = $"{user.UserName}さんの詳細";

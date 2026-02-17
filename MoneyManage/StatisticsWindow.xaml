@@ -43,10 +43,10 @@
 
         <DataGrid x:Name="historyDataGrid" Grid.Row="4" Margin="5" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="日付" Binding="{Binding aa}"/>
-                <DataGridTextColumn Header="カテゴリー" Binding="{Binding aa}"/>
-                <DataGridTextColumn Header="料金" Binding="{Binding aa}"/>
-                <DataGridTextColumn Header="備考" Binding="{Binding aa}" Width="*"/>
+                <DataGridTextColumn Header="日付" Binding="{Binding Date, StringFormat=yyyy-MM-dd}"/>
+                <DataGridTextColumn Header="カテゴリー" Binding="{Binding Category.CategoryName}"/>
+                <DataGridTextColumn Header="料金" Binding="{Binding Amount}"/>
+                <DataGridTextColumn Header="備考" Binding="{Binding Memo}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 
