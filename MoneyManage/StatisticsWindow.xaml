@@ -37,7 +37,7 @@
             <TextBlock Text="対象ユーザー："/>
             <ComboBox Width="200" x:Name="searchComboBox" SelectionChanged="searchComboBox_SelectionChanged" DisplayMemberPath="UserName"/>
             <TextBlock Text="     対象年月："/>
-            <ComboBox Width="200" x:Name="searchyearMonthComboBox" SelectionChanged="searchyearMonthComboBox_SelectionChanged" DisplayMemberPath="aa"/>
+            <ComboBox Width="200" x:Name="searchyearMonthComboBox" SelectionChanged="searchyearMonthComboBox_SelectionChanged"/>
 
         </StackPanel>
 
