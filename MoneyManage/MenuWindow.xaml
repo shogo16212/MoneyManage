@@ -14,6 +14,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
@@ -25,9 +26,9 @@
             <Button x:Name="addButton" Click="addButton_Click" Content="家計簿登録" Width="150" Margin="10"/>
             <Button x:Name="categoryManageButton" Click="categoryManageButton_Click" Content="カテゴリー管理" Width="150" Margin="10"/>
             <Button x:Name="statisticsButton" Click="statisticsButton_Click" Content="分析" Width="150" Margin="10"/>
-            <Button x:Name="logoutButton" Click="logoutButton_Click" Content="ログアウト" Width="150" Margin="10"/>
             <Button x:Name="userAddButton" Click="userAddButton_Click" Content="ユーザー追加" Width="150" Margin="10" Visibility="Collapsed"/>
             <Button x:Name="userEditButton" Click="userEditButton_Click" Content="ユーザー編集" Width="150" Margin="10"/>
+            <Button x:Name="logoutButton" Click="logoutButton_Click" Content="ログアウト" Width="150" Margin="10"/>
         </StackPanel>
 
         <StackPanel Margin="5" HorizontalAlignment="Center" Grid.Row="2" Orientation="Horizontal">
@@ -35,8 +36,12 @@
             <TextBlock Width="200" x:Name="monthTextBlock" TextAlignment="Center"/>
             <Button x:Name="afterButton" Click="afterButton_Click" Content=" &gt; "/>
         </StackPanel>
-        
-        <DataGrid SelectionChanged="dataGrid_SelectionChanged" Grid.Row="3" x:Name="dataGrid" Margin="10" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" CanUserAddRows="False">
+
+        <StackPanel Grid.Row="3" HorizontalAlignment="Center" Orientation="Horizontal">
+            <RadioButton Margin="5" x:Name="listRadioButton" GroupName="switch" IsChecked="True" Click="listRadioButton_Click" Content="表で表示"/>
+            <RadioButton Margin="5" x:Name="detailRadioButton" GroupName="switch" Click="detailRadioButton_Click" Content="カテゴリーごとで表示"/>
+        </StackPanel>
+        <DataGrid Visibility="Collapsed" SelectionChanged="dataGrid_SelectionChanged" Grid.Row="4" x:Name="dataGrid" Margin="10" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="日付" Binding="{Binding Date, StringFormat=yyyy-MM-dd}" Width="*"/>
                 <DataGridTextColumn Header="タイプ" Binding="{Binding Category.Entory.EntoriesName}" Width="0.5*"/>
@@ -45,5 +50,14 @@
                 <DataGridTextColumn Header="備考" Binding="{Binding Memo}" Width="4*"/>
             </DataGrid.Columns>
         </DataGrid>
+
+        <Grid Grid.Row="4" x:Name="detailGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <CheckBox Margin="5" HorizontalAlignment="Center" x:Name="onlyCheckBox" Click="onlyCheckBox_Click" Content="自分だけのデータにする"/>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" x:Name="detailStackPanel"/>
+        </Grid>
     </Grid>
 </Window>
