@@ -20,7 +20,7 @@ namespace MoneyManage
         }
     
         public int EntoriesID { get; set; }
-        public string EntoriesName { get; set; }
+        public string EntoryName { get; set; }
     
         public virtual ICollection<Category> Categories { get; set; }
     }

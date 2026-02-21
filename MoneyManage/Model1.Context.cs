@@ -30,5 +30,6 @@ namespace MoneyManage
         public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<MonthlyGole> MonthlyGoles { get; set; }
     }
 }

@@ -18,7 +18,21 @@
             <PropertyRef Name="EntoriesID" />
           </Key>
           <Property Name="EntoriesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="EntoriesName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EntoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--生成中に見つかったエラー:
+警告 6002: テーブル/ビュー 'MoneyManager.dbo.MonthlyGoles' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。-->
+        <EntityType Name="MonthlyGoles">
+          <Key>
+            <PropertyRef Name="MonthlyGolesId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="CategoryId" />
+            <PropertyRef Name="Amount" />
+          </Key>
+          <Property Name="MonthlyGolesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -62,6 +76,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MonthlyGoles_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="MonthlyGoles" Type="Self.MonthlyGoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="MonthlyGoles">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlyGoles_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="MonthlyGoles" Type="Self.MonthlyGoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="MonthlyGoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Transactions_Categories">
           <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
           <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
@@ -92,9 +130,25 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonthlyGoles" EntityType="Self.MonthlyGoles" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[MonthlyGoles].[MonthlyGolesId] AS [MonthlyGolesId], 
+[MonthlyGoles].[UserId] AS [UserId], 
+[MonthlyGoles].[CategoryId] AS [CategoryId], 
+[MonthlyGoles].[Amount] AS [Amount]
+FROM [dbo].[MonthlyGoles] AS [MonthlyGoles]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Categories_Entories" Association="Self.FK_Categories_Entories">
             <End Role="Entories" EntitySet="Entories" />
             <End Role="Categories" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlyGoles_Categories" Association="Self.FK_MonthlyGoles_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="MonthlyGoles" EntitySet="MonthlyGoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlyGoles_Users" Association="Self.FK_MonthlyGoles_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MonthlyGoles" EntitySet="MonthlyGoles" />
           </AssociationSet>
           <AssociationSet Name="FK_Transactions_Categories" Association="Self.FK_Transactions_Categories">
             <End Role="Categories" EntitySet="Categories" />
@@ -118,6 +172,7 @@
           <Property Name="EntoryID" Type="Int32" Nullable="false" />
           <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Entory" Relationship="Self.FK_Categories_Entories" FromRole="Categories" ToRole="Entories" />
+          <NavigationProperty Name="MonthlyGoles" Relationship="Self.FK_MonthlyGoles_Categories" FromRole="Categories" ToRole="MonthlyGoles" />
           <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_Categories" FromRole="Categories" ToRole="Transactions" />
         </EntityType>
         <EntityType Name="Entory">
@@ -125,7 +180,7 @@
             <PropertyRef Name="EntoriesID" />
           </Key>
           <Property Name="EntoriesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EntoriesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EntoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Categories" Relationship="Self.FK_Categories_Entories" FromRole="Entories" ToRole="Categories" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -160,6 +215,21 @@
           <Property Name="PasswordHash" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_Users" FromRole="Users" ToRole="Transactions" />
+          <NavigationProperty Name="MonthlyGoles" Relationship="Self.FK_MonthlyGoles_Users" FromRole="Users" ToRole="MonthlyGoles" />
+        </EntityType>
+        <EntityType Name="MonthlyGole">
+          <Key>
+            <PropertyRef Name="MonthlyGolesId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="CategoryId" />
+            <PropertyRef Name="Amount" />
+          </Key>
+          <Property Name="MonthlyGolesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_MonthlyGoles_Categories" FromRole="MonthlyGoles" ToRole="Categories" />
+          <NavigationProperty Name="User" Relationship="Self.FK_MonthlyGoles_Users" FromRole="MonthlyGoles" ToRole="Users" />
         </EntityType>
         <Association Name="FK_Categories_Entories">
           <End Role="Entories" Type="Self.Entory" Multiplicity="1" />
@@ -170,6 +240,18 @@
             </Principal>
             <Dependent Role="Categories">
               <PropertyRef Name="EntoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlyGoles_Categories">
+          <End Role="Categories" Type="Self.Category" Multiplicity="1" />
+          <End Role="MonthlyGoles" Type="Self.MonthlyGole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="MonthlyGoles">
+              <PropertyRef Name="CategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -197,15 +279,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MonthlyGoles_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="MonthlyGoles" Type="Self.MonthlyGole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="MonthlyGoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DB" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Entories" EntityType="Self.Entory" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Transactions" EntityType="Self.Transaction" />
           <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="MonthlyGoles" EntityType="Self.MonthlyGole" />
           <AssociationSet Name="FK_Categories_Entories" Association="Self.FK_Categories_Entories">
             <End Role="Entories" EntitySet="Entories" />
             <End Role="Categories" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlyGoles_Categories" Association="Self.FK_MonthlyGoles_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="MonthlyGoles" EntitySet="MonthlyGoles" />
           </AssociationSet>
           <AssociationSet Name="FK_Transactions_Categories" Association="Self.FK_Transactions_Categories">
             <End Role="Categories" EntitySet="Categories" />
@@ -214,6 +313,10 @@
           <AssociationSet Name="FK_Transactions_Users" Association="Self.FK_Transactions_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlyGoles_Users" Association="Self.FK_MonthlyGoles_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MonthlyGoles" EntitySet="MonthlyGoles" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -235,7 +338,7 @@
             <EntityTypeMapping TypeName="MoneyManagerModel.Entory">
               <MappingFragment StoreEntitySet="Entories">
                 <ScalarProperty Name="EntoriesID" ColumnName="EntoriesID" />
-                <ScalarProperty Name="EntoriesName" ColumnName="EntoriesName" />
+                <ScalarProperty Name="EntoryName" ColumnName="EntoryName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -269,6 +372,16 @@
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
                 <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonthlyGoles">
+            <EntityTypeMapping TypeName="MoneyManagerModel.MonthlyGole">
+              <MappingFragment StoreEntitySet="MonthlyGoles">
+                <ScalarProperty Name="MonthlyGolesId" ColumnName="MonthlyGolesId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

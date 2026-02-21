@@ -21,7 +21,7 @@ namespace MoneyManage
     {
         private DB db = new DB();
         public StatisticsWindow()
-        {                   
+        {
             InitializeComponent();
 
             var user = db.Users.Find(Common.UserID);
@@ -85,7 +85,7 @@ namespace MoneyManage
                 yearMonths.Add(dt.ToString("yyyy-MM"));
             }
 
-            yearMonths.Insert(0,"All");
+            yearMonths.Insert(0, "All");
             searchyearMonthComboBox.ItemsSource = yearMonths;
             searchyearMonthComboBox.SelectedItem = yearMonths.FirstOrDefault();
         }

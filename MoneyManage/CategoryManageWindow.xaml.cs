@@ -48,13 +48,13 @@ namespace MoneyManage
 
                 if (nameTextBox.Text.IsNullOrEmpty()) "名前を入力してください".Err();
 
-                if(db.Categories.Any(a => a.CategoryName == nameTextBox.Text)) "その名前はすでに使用されています".Err();
+                if (db.Categories.Any(a => a.CategoryName == nameTextBox.Text)) "その名前はすでに使用されています".Err();
 
-                var category = new Category { EntoryID = entry.EntoriesID, CategoryName = nameTextBox.Text, Entory = entry};
+                var category = new Category { EntoryID = entry.EntoriesID, CategoryName = nameTextBox.Text, Entory = entry };
 
                 addCategories.Add(category);
                 categories.Add(category);
-                
+
             }
             catch (Exception ex)
             {
@@ -65,7 +65,7 @@ namespace MoneyManage
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
             var category = (sender as Button).Tag as Category;
-            if(category == null) return;
+            if (category == null) return;
 
             if (addCategories.Any(a => a.CategoryName == category.CategoryName))
             {

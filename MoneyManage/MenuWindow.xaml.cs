@@ -137,7 +137,7 @@ namespace MoneyManage
                 {
                     Width = 150,
                     // tostringで怒られる
-                    Text = $"{db.Transactions.Where(a => a.Date.ToString("yyyy-MM") == dateTime.ToString("yyyy-MM")).ToList().Sum(b => b.Amount)}円",
+                    Text = $"{db.Transactions.ToList().Where(a => a.Date.ToString("yyyy-MM") == dateTime.ToString("yyyy-MM")).ToList().Sum(b => b.Amount)}円",
                 });
 
                 detailStackPanel.Children.Add(stackPanel);

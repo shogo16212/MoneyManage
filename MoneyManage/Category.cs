@@ -16,6 +16,7 @@ namespace MoneyManage
     {
         public Category()
         {
+            this.MonthlyGoles = new HashSet<MonthlyGole>();
             this.Transactions = new HashSet<Transaction>();
         }
     
@@ -24,6 +25,7 @@ namespace MoneyManage
         public string CategoryName { get; set; }
     
         public virtual Entory Entory { get; set; }
+        public virtual ICollection<MonthlyGole> MonthlyGoles { get; set; }
         public virtual ICollection<Transaction> Transactions { get; set; }
     }
 }
